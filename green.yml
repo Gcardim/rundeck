@@ -1,0 +1,36 @@
+---
+- name: conteiner docker green
+  hosts: docker
+  remote_user: root
+  tasks:
+   - name: modpip
+     apt: 
+      name: python-pip
+          
+   - name: installpip
+     pip: 
+      name: docker-py
+
+   - name: imagemgreen
+     docker_container:
+      name: green
+      image: httpd
+      state: started
+       
+   - name: imagemblue
+     docker_container:
+      name: blue
+      image: httpd
+      state: started   
+
+   - name: mkdirsgreeen
+     file:
+      path: /green
+      state: directory
+      mode: 0644
+
+   - name: mkdirblue
+     file:
+      path: /blue
+      state: directory
+      mode: 0644
